@@ -10,11 +10,39 @@
     <link rel="stylesheet" href="TemplateData/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Your Name">
-    <meta name="keywords" content="Snow Rider 3D, skiing game, winter sports, snowboarding, ski game, mountain landscapes, skiing adventure, snowboarding adventure, snowy mountain, sleigh ride, winter game">
+    <meta name="keywords" content="Snow Rider 3D, skiing game, winter sports, snowboarding, ski game, mountain landscapes, skiing adventure, snowboarding adventure, snowy mountain, sleigh ride">
     <script src="TemplateData/UnityProgress.js"></script>
+    
+    <!-- Block redirects from the game -->
+    <script>
+        // Block window.open redirects
+        window.open = function() {
+            console.log("Redirect blocked");
+            return null;
+        };
+        
+        // Block location changes
+        Object.defineProperty(window, 'location', {
+            value: window.location,
+            writable: false
+        });
+        
+        // Block navigation via assignment
+        var originalLocationAssign = window.location.assign;
+        window.location.assign = function() {
+            console.log("Location.assign blocked");
+        };
+        
+        // Block navigation via replace
+        var originalLocationReplace = window.location.replace;
+        window.location.replace = function() {
+            console.log("Location.replace blocked");
+        };
+    </script>
+    
     <script src="Build/UnityLoader.js"></script>
     <script>
-        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/SnowRider3D-gd-1.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
+        var gameInstance = UnityLoader.instantiate("gameContainer", "Build/SnowRider3D-gd-1.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete");}}});
     </script>
 </head>
 <body style="overflow:hidden;padding:0px;margin:0px;">
@@ -23,4 +51,3 @@
     </div>
 </body>
 </html>
-
